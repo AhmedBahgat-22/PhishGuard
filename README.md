@@ -198,6 +198,11 @@ The public application is hosted at [phishguard-ahmed.streamlit.app](https://phi
 - HTTPS is not evidence that a website is trustworthy. Predictions may fail on new attack patterns or independent datasets.
 - Never use this prototype as the sole basis for entering credentials or financial information.
 
+## Project Report
+
+[📄 View Project Report (PDF)](docs/PhishGuard_Report.pdf)
+
+
 ## Author
 
 **Ahmed Abdelmoula** — Computer Engineering student. Developed as a Data Mining term project (2026).
