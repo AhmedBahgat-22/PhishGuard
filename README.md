@@ -2,9 +2,9 @@
 
 # PhishGuard
 
-**URL intelligence for phishing detection**
+**Phishing Website Detection Using Data Mining**
 
-A data mining and machine learning project that compares three classification models and turns the results into an interactive URL scanner.
+An end-to-end data mining project for phishing detection, combining exploratory analysis, feature engineering, supervised classification and an interactive Streamlit application.
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white)
@@ -13,8 +13,9 @@ A data mining and machine learning project that compares three classification mo
 
 [Explore the notebook](notebooks/PhishGuard_Data_Mining.ipynb) · [Model results](#model-performance) · [Run locally](#run-locally)
 
-**Live demo:** Deployment pending. [Deployment instructions](#deploy-to-streamlit-community-cloud)
-<!-- After deployment, replace the pending line with [![Open Live Demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_VERIFIED_STREAMLIT_URL) -->
+[![Launch Live Demo](https://img.shields.io/badge/Launch_Live_Demo-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://phishguard-ahmed.streamlit.app/)
+
+[Open PhishGuard in your browser](https://phishguard-ahmed.streamlit.app/) · No installation required
 
 </div>
 
@@ -39,7 +40,15 @@ The project combines exploratory data analysis, feature engineering, leakage-awa
 
 No HTTP requests are sent to the submitted website. Do not enter private URLs, tokens or credentials into the public demo.
 
-<!-- Optional: add an actual screenshot from the running application at assets/app-preview.png and insert ![PhishGuard interface](assets/app-preview.png) here. -->
+### Live application preview
+
+[![PhishGuard live application overview](assets/app-preview.png)](https://phishguard-ahmed.streamlit.app/)
+
+### Interactive URL scanner
+
+![PhishGuard URL scanner interface, before a scan](assets/url-scanner.png)
+
+Try the [live demo](https://phishguard-ahmed.streamlit.app/) with `https://example.com` to see a classification and compare the three models. The screenshots show the deployed application, not a simulated interface.
 
 ## Dataset
 
@@ -127,7 +136,7 @@ PhishGuard/
 ├── .streamlit/config.toml         # Streamlit theme
 ├── notebooks/
 │   └── PhishGuard_Data_Mining.ipynb # Training, evaluation and export
-├── assets/                        # Original evaluation plots
+├── assets/                        # Evaluation plots and live app screenshots
 ├── export_colab.py                # Export helper (run in trained Colab session)
 ├── model_comparison.csv           # Recorded metrics
 ├── requirements.txt               # Pinned application dependencies
@@ -138,7 +147,7 @@ PhishGuard/
 
 ## Run locally
 
-The original trained pipelines are included in `models.pkl`; **no training is required** to run the scanner. The dependency versions come from the original application, with Streamlit pinned for repeatable installation. The model records scikit-learn 1.6.1. URL feature functions live in `features.py` instead of serialized notebook bytecode. Only load a trusted pickle. For the original legacy bundle, run `python smoke_test.py --migrate` once in the environment that successfully loads the bundle (before publishing); this checks predictions, writes a model-only bundle and keeps a local ignored backup. No retraining is performed. Use the same dependency versions and the tested Python version for deployment.
+The fitted model pipelines are included in `models.pkl`; **no training is required** to run the scanner. The published model bundle was migrated to store the fitted pipelines without serialized notebook feature functions, and all three classifiers passed the local inference smoke test on Python 3.11.9 with scikit-learn 1.6.1. URL feature extraction is implemented in `features.py`. Install the pinned dependencies and only load trusted pickle files.
 
 ### 1. Create an environment
 
@@ -174,11 +183,13 @@ The notebook contains all training and evaluation steps. To regenerate the model
 
 ## Deploy to Streamlit Community Cloud
 
-1. Run the local smoke test and migrate any legacy bundle as described above. Push the repository, including `models.pkl`, `model_comparison.csv` and `requirements.txt`, to GitHub. Do not commit secrets or private URLs.
+The public application is hosted at [phishguard-ahmed.streamlit.app](https://phishguard-ahmed.streamlit.app/). To deploy your own copy:
+
+1. Run the local smoke test. Push the repository, including `models.pkl`, `model_comparison.csv` and `requirements.txt`, to GitHub. Do not commit secrets or private URLs.
 2. Sign in at [Streamlit Community Cloud](https://share.streamlit.io/) with GitHub.
 3. Select **Create app**, the repository, branch `main`, and entry point `app.py`.
 4. In **Advanced settings**, choose the Python major/minor version that passed the local smoke test (prefer the original export version).
-5. Deploy and verify that the scanner and performance tab work. Copy the actual public URL and replace the pending Live Demo line at the top of this README with a link or Streamlit badge.
+5. Deploy and verify that the scanner and performance tab work. If you fork this repository, update the demo links to your own application URL.
 
 ## Limitations
 
